@@ -1,0 +1,55 @@
+{% load static %}
+<!-- DesktopNav Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+    <li><a class="blue-text text-darken-3" href="#!">one</a></li>
+    <li><a class="blue-text text-darken-3" href="#!">two</a></li>
+    <li class="divider"></li>
+    <li><a class="blue-text text-darken-3" href="#!">three</a></li>
+</ul>
+<!--DesktopNav-->
+<nav class="white">
+    <div class="nav-wrapper">
+        <div class="row">
+            <!--Logo-->
+            <div class="col l3 m3 s3">
+                <a href="#!" class="brand-logo blue-text text-darken-3 hide-on-med-and-down">Logo</a>        
+                <a href="#" data-target="slide-out" class="sidenav-trigger blue-text text-darken-3"><i class="material-icons">menu</i></a>
+            </div>
+            <!--Search-->
+            <div class="col l6 m9 s9">
+                <form class="">
+                    <div class="input-field">
+                      <input id="search" class="nav-bar-input" type="search" required>
+                      <label class="label-icon" for="search"><i class="material-icons blue-text text-darken-3">search</i></label>                      
+                    </div>
+                </form>
+            </div>
+            <!--Options-->
+            <div class="col l3 hide-on-med-and-down">
+                <ul class="right hide-on-med-and-down">            
+                    <li><a class="blue-text text-darken-3" href="sass.html">Sass</a></li>
+                    <li><a class="blue-text text-darken-3" href="badges.html">Components</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li><a class="blue-text text-darken-3 dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+            </div>
+        </div>       
+    </div>
+</nav>
+
+<!--MobileNav-->
+<ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+      <a href="#name"><span class="white-text name">John Doe</span></a>
+      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+</ul>

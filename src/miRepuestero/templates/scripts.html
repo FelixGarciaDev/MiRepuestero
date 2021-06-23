@@ -1,0 +1,18 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    // init elements
+    let navOptions = {}
+    var navs = document.querySelectorAll('.sidenav');
+    var navInstances = M.Sidenav.init(navs, navOptions);
+
+    let sideNavOptions = {}
+    var sidenavs = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(sidenavs, sideNavOptions);
+
+    let DropdownOptions = {}
+    var dropdowns = document.querySelectorAll('.dropdown-trigger');
+    var dropdownInstances = M.Dropdown.init(dropdowns, DropdownOptions);
+});
+</script>

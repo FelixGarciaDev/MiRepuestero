@@ -1,0 +1,8 @@
+/*NAVAR*/
+.nav-bar-input{
+    top: 1.25rem;
+    position: relative;
+    height: 2rem !important;
+    border-bottom: solid 1px #1565c0 !important;
+    border-image: linear-gradient(90deg,white,#1565c0,white) 10 !important;
+}
