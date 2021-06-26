@@ -1,0 +1,16 @@
+@media only screen and (min-device-width: 300px) and (max-device-width: 670px) {
+    /*VIDEO ROW*/
+
+    .vidContain {    
+        height:200px !important;   
+    }
+  
+    .vid > video {                
+        top: 103px !important;
+    }
+    
+    .vidContain .overlay{
+        height: 204px !important;
+    }    
+    
+}

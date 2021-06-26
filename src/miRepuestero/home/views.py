@@ -32,5 +32,6 @@ class HomeView(View):
     
     def get(self, request, *args, **kwargs):
         # GET method
-        context = {}                
+        context = {}      
+        context["index"] = True          
         return render(request, self.template_name, context)

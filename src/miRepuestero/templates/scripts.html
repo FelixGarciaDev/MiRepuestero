@@ -1,5 +1,8 @@
 {% load static %}
 <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+{% if index == True %}
+<script type="text/javascript" src="{% static 'js/video.js' %}"></script>
+{% endif %}
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     // init elements

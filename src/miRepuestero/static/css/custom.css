@@ -1,3 +1,8 @@
+/*HELPERS*/
+.h-100{
+    height: 100% !important;
+}
+
 /*NAVAR*/
 .nav-bar-input{
     top: 1.25rem;
@@ -5,4 +10,94 @@
     height: 2rem !important;
     border-bottom: solid 1px #1565c0 !important;
     border-image: linear-gradient(90deg,white,#1565c0,white) 10 !important;
+}
+
+/*VIDEO ROW*/
+
+.vidContain {
+  width:100%; 
+  height:450px;
+  position:relative;
+  display:inline-block;  
+}
+
+.vid {
+  position: absolute; 
+  top: 0; 
+  left:0;
+  width: 100%; 
+  height: 100%; 
+  z-index: -1;
+}  
+
+.vid > video {
+    position: absolute;
+    top: 65%;
+    left: 49.99%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.vidContain .overlay{
+    height: 455px;
+}
+
+.overlay {    
+    display: block;
+    width: 100%; /* Full width (cover the whole page) */        
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */    
+    z-index: 100;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+#typingLineOne, #typingLineTwo, #typingLineOneMobile, #typingLineTwoMobile{
+    display: none;
+    font-family: monospace;
+}
+ 
+.typing-animation {
+    width: 100%;    
+    animation: typing 2s steps(12), blink .5s step-end infinite alternate;
+    white-space:nowrap;
+    overflow: hidden;
+    border-right: 3px solid;      
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+}
+    
+@keyframes blink {
+    50% {
+        border-color: transparent
+    }
+}
+
+/*FOR PEOPLE ROW*/
+
+.multiple-valign-wrapper {
+    display: grid;
+    display: -ms-grid;    
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+/*FOR SHOPS ROW*/
+
+#forShop{
+    background-image: url(../images/autoPartShop.jpg);
+    background-size: cover;
+}
+
+#forShop .overlay{
+    height: 100%;
 }
