@@ -1,0 +1,9 @@
+{% autoescape off %}
+Hola, ya casi esta listo tu registro en MiRepuestero.com
+
+Porfavor haz click en el siguiente link para confirmar tu correo electronico y activar tu cuenta:
+
+http://{{ domain }}{% url 'clients:signup-cliente-activation' uid64=uid token=token %}
+
+Los mejores desos de parte del equipo de MiRepuestero.com
+{% endautoescape %}

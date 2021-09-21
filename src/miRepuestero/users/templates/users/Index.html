@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="singup-choose-bg">
+    <div class="overlay h-100">
+        <div class="container">
+            <div class="h-75-vh">
+                <div class="row h-75-vh">
+                    <div class="col l6 m6 s12 h-75-vh valign-wrapper">
+                        <a class="waves-effect waves-light btn btn-large m-x-auto" href="{% url 'users:signup-normal' %}">Particular</a>
+                    </div>
+                    <div class="col l6 m6 s12 h-75-vh valign-wrapper">
+                        <a class="waves-effect waves-light btn btn-large m-x-auto" href="{% url 'users:signup-refiller' %}">Repuestero</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

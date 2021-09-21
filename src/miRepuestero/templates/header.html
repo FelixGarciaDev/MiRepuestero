@@ -12,7 +12,11 @@
         <div class="row">
             <!--Logo-->
             <div class="col l3 m3 s3">
-                <a href="#!" class="brand-logo blue-text text-darken-3 hide-on-med-and-down">Logo</a>        
+                <div class="col l10 offset-l1">
+                    <div class="" style="position: relative; top: 10px;">
+                        <img class="responsive-img hide-on-med-and-down" src="{% static 'images/logoCompressed.png' %}" alt="icon not found"/>
+                    </div>
+                </div>
                 <a href="#" data-target="slide-out" class="sidenav-trigger blue-text text-darken-3"><i class="material-icons">menu</i></a>
             </div>
             <!--Search-->
@@ -26,11 +30,13 @@
             </div>
             <!--Options-->
             <div class="col l3 hide-on-med-and-down">
-                <ul class="right hide-on-med-and-down">            
-                    <li><a class="blue-text text-darken-3" href="sass.html">Sass</a></li>
-                    <li><a class="blue-text text-darken-3" href="badges.html">Components</a></li>
-                    <!-- Dropdown Trigger -->
-                    <li><a class="blue-text text-darken-3 dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                <ul class="right hide-on-med-and-down">
+                    {% if user.is_authenticated and user.is_cliente %}
+                        <li><a class="blue-text text-darken-3" href="#">Cuenta</a></li>
+                    {% else %}
+                        <li><a class="blue-text text-darken-3" href="#">Iniciar Sesión</a></li>
+                        <li><a class="blue-text text-darken-3" href="{% url 'users:signup-choose' %}">Registrarse</a></li>                        
+                    {% endif %}                    
                 </ul>
             </div>
         </div>       
