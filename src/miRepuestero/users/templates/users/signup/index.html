@@ -6,30 +6,21 @@
 <div class="grey lighten-5 pt-2">
     <div class="container">
         <div class="center-x-y-flex h-75-vh">
-            <div class="card w-100 pt-2 pb-2 pl-3 pr-3" style="min-width: 300px; max-width: 600px;"">
+            <div class="card w-100 pt-2 pb-2 pl-3 pr-3" style="min-width: 300px; max-width: 600px;">
                 <div class="center-align">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <input type="hidden" name="next" value="{{ next }}">                 
+                        <input type="hidden" name="next" value="{{ next }}">       
+
+                        <div class="row">
+                            <p>Solo necesitamos tu correo, te enviaremos un link de activación</p>
+                        </div>          
+
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix" style="color: #5a5a5a">email</i>
                                 <!--we have to use id_username and id_password beacause were using built in django auth-->
-                                <input placeholder="Email" id="id_username" type="email" name="username" class="validate">                                
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix" style="color: #5a5a5a">lock</i>
-                                <input name="password1" id="id_password1" class="validate" type="password" placeholder="Contraseña">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix" style="color: #5a5a5a">lock</i>
-                                <input name="password2" id="id_password2" class="validate" type="password" placeholder="Contraseña"
+                                <input name="email" id="id_email" class="validate" type="email" placeholder="Email">
                             </div>
                         </div>
 

@@ -108,8 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Custom Django auth settings
 
 AUTH_USER_MODEL = 'users.User'
-#PARA SIMULAR ENVIO DE CORREOS POR MEDIO DE LA TERMINAL
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
+# Console emulator for mails, use only during development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

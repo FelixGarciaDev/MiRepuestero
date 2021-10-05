@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.sites.shortcuts import get_current_site
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login, logout
 
 # email verification and password reset stuff
 from django.core.mail import send_mail
@@ -33,7 +33,7 @@ from django.views.generic import (
 
 from .tokens import token_generator
 
-from .forms import SignupForm
+from .forms import SignupForm, SignupByMailForm, UserUpdatePassWordForm
 
 #from users.models import Cliente, Publicacion, Repuestero
 
@@ -49,7 +49,7 @@ class SignupChoose(View):
 
 class SignupeNormalUser(CreateView):
     model = User
-    form_class = SignupForm
+    form_class = SignupByMailForm
     template_name = 'users/signup/index.html'
 
     def get_context_data(self, **kwargs):
@@ -69,7 +69,7 @@ class SignupeNormalUser(CreateView):
         uidb64          = urlsafe_base64_encode(force_bytes(user.pk))
         token           = token_generator.make_token(user)        
         domain          = get_current_site(self.request).domain
-        link            = reverse('superuser:activation', kwargs={'uidb64':uidb64, 'token': token})
+        link            = reverse('users:activation', kwargs={'uidb64':uidb64, 'token': token})
         protocol        = 'http://'
         activate_url    = protocol+domain+link
         email_subject   = '[MiRepuestero.com] ¡Ya casi tienes todos los repuestos a un click!'
@@ -82,8 +82,9 @@ class SignupeNormalUser(CreateView):
             [to_email],
             fail_silently=False,
         )
+        print("mail send")
         #redirigo al usuario a una pantalla que informa que le fue enviado un correo de activación            
-        return redirect('refillers:signup-repuestero-linksent')
+        return redirect('users:signup-linksent')
 
 class SignupRefiller(CreateView):
     model = User
@@ -95,22 +96,80 @@ class SignupRefiller(CreateView):
         return super().get_context_data(**kwargs)
     
     def form_valid(self, form):
-        # if form valid, create a inactive user            
+        # if form valid, create a inactive user
+        print("form valid")            
+        print(form)
         user = form.save(commit=False)
         user.is_active = False
         user.is_repuestero = True
         user.save() 
         # send confirmation email            
-        current_site = get_current_site(self.request)            
-        subject = '[MiRepuestero.com] ¡Ya casi estas listo para publicar en MiRepuestero.com!'
-        message = render_to_string('refillers/signup/signup_activation_repuestero_email.html', {
-            'user': user,
-            'domain': current_site.domain,                
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-            'token': account_activation_token.make_token(user),
-        })            
-        to_email = form.cleaned_data.get('email')
-        email = EmailMessage(subject, message, to=[to_email])
-        email.send()
+        # send confirmation email
+        to_email        = form.cleaned_data.get('email')
+        uidb64          = urlsafe_base64_encode(force_bytes(user.pk))
+        token           = token_generator.make_token(user)        
+        domain          = get_current_site(self.request).domain
+        link            = reverse('N:activation', kwargs={'uidb64':uidb64, 'token': token})
+        protocol        = 'http://'
+        activate_url    = protocol+domain+link
+        email_subject   = '[MiRepuestero.com] ¡Ya casi tienes todos los repuestos a un click!'
+        emai_body       = 'Bienvenido a MiRepuestero activa tu cuenta haciendo click en el siguiente enlace\n\n'+activate_url
+        send_mail(
+            email_subject, 
+            emai_body,
+            'noreply@mirepuestero.com',
+            #[user], #recipients list
+            [to_email],
+            fail_silently=False,
+        )
+        print("mail send")
         #redirigo al usuario a una pantalla que informa que le fue enviado un correo de activación            
-        return redirect('refillers:signup-repuestero-linksent')
+        return redirect('users:signup-refiller-linksent')
+
+class linkSentView(View):
+    template_name = "users/signup/linkSent.html"
+    def get(self, request, *args, **kwargs):
+        # GET method        
+        context = {}
+        return render(request, self.template_name, context)
+
+class VerificationView(View):
+
+    def get(self, request, uidb64, token):
+        try:            
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = User.objects.get(pk=uid)            
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None        
+        if user is not None and token_generator.check_token(user, token):
+            # activate user and login:
+            user.is_active = True
+            user.save()
+            login(request, user)            
+            return render(request, 'users/signup/activationSuccess.html')
+        else:
+            return HttpResponse('¡Link invalido o expirado!')
+
+    def post(self, request):
+        form = UserUpdatePassWordForm(request.POST)
+        if form.is_valid():
+            print("form valid")
+            #user = form.save()
+            user = self.request.user
+            print("got user")
+            print(user)
+            print(form.cleaned_data['password1'])
+            user.set_password(form.cleaned_data['password1'])
+            print("password was set")
+            user.save()
+            #update_session_auth_hash(request, user) # Important, to update the session with the new password
+            return HttpResponse('Password changed successfully')
+
+class ActivationFormView(UpdateView):
+    model           = User
+    template_name   = 'superuser/activation/activationValid.html'
+    form_class      = UserUpdatePassWordForm 
+
+    def get_object(self):                
+        id_     = self.kwargs.get("id")
+        return get_object_or_404(Employee, user_id=id_)   

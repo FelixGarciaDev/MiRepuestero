@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="grey lighten-5 pt-2">
+    <div class="container">
+        <div class="center-x-y-flex h-75-vh">
+            <div class="card w-100 pt-2 pb-2 pl-3 pr-3" style="min-width: 300px; max-width: 600px;">
+                <div class="center-align">
+                    <p>!Correo Verificado!</p>
+                    <p>Ahora debes establecer una contraseña</p>
+                    <form action="{% url 'users:activation-change-password' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="color: #5a5a5a">lock</i>                                    
+                            <input type="password" name="password1" maxlength="50" minlength="8" required="" id="id_password1" placeholder="********" class="validate">
+                            <label for="password">Contraseña</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="color: #5a5a5a">lock</i>                                    
+                            <input type="password" name="password2" maxlength="50" minlength="8" required="" id="id_password2" placeholder="********" class="validate">
+                            <label for="password">Repita la contraseña</label>
+                        </div>
+                        {% for error in form.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                        <button type='submit' class="waves-effect waves-light btn-large white-text">
+                            Establecer Contraseña
+                        </button>                               
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
