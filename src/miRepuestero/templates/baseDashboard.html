@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+{% include 'head.html' %}
+
+{% include 'header.html' %}
+
+<body>
+    <div class="row mb-0">        
+        <div class="col m3 left-side pl-0 pr-0 left-menu-content">
+            {% block left-menu %}
+
+            {% endblock %}
+        </div>
+        
+        <!--Right side panel-->
+        <div class="col s12 m9 pl-0 pr-0 right-panel-content">
+            {% block dashboard-content %}
+    
+            {% endblock %}
+        </div>
+    </div>    
+
+    {% include 'footer.html' %}
+
+    {% include 'scripts.html' %}
+
+</body>
+
+</html>

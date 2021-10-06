@@ -31,10 +31,15 @@
             <!--Options-->
             <div class="col l3 hide-on-med-and-down">
                 <ul class="right hide-on-med-and-down">
-                    {% if user.is_authenticated and user.is_cliente %}
-                        <li><a class="blue-text text-darken-3" href="#">Cuenta</a></li>
+                    {% if user.is_authenticated %}
+                        {% if user.is_cliente %}
+                            <li><a class="blue-text text-darken-3" href="{% url 'clients:dashboard-client' %}">Mi cuenta</a></li>
+                        {% endif %}
+                        {% if user.is_repuestero %}
+                            <li><a class="blue-text text-darken-3" href="#">Panel de control</a></li>
+                        {% endif %}
                     {% else %}
-                        <li><a class="blue-text text-darken-3" href="#">Iniciar Sesión</a></li>
+                        <li><a class="blue-text text-darken-3" href="{% url 'users:login' %}">Iniciar Sesión</a></li>
                         <li><a class="blue-text text-darken-3" href="{% url 'users:signup-choose' %}">Registrarse</a></li>                        
                     {% endif %}                    
                 </ul>

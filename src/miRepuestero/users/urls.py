@@ -5,7 +5,8 @@ from .views import (
     SignupRefiller,
     linkSentView,
     VerificationView,
-    ActivationFormView
+    ActivationFormView,
+    LoginView
 )
 
 app_name = 'users'
@@ -18,5 +19,8 @@ urlpatterns = [
     # user activation
     path('activation/<uidb64>/<token>/', VerificationView.as_view(), name='activation'),
     path('activation/changepassword/', VerificationView.as_view(), name='activation-change-password'),
-    path('activationform/form/<int:id>/', ActivationFormView.as_view(), name='activation-form')
+    path('activationform/form/<int:id>/', ActivationFormView.as_view(), name='activation-form'),
+    # user login
+    path('login/', LoginView.as_view(), name='login')
+    
 ]

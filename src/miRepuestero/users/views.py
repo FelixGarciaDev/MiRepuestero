@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.sites.shortcuts import get_current_site
 
 from django.contrib.auth import get_user_model, login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 
 # email verification and password reset stuff
 from django.core.mail import send_mail
@@ -35,7 +36,7 @@ from .tokens import token_generator
 
 from .forms import SignupForm, SignupByMailForm, UserUpdatePassWordForm
 
-#from users.models import Cliente, Publicacion, Repuestero
+from clients.models import Client
 
 User = get_user_model()
 # -----------------------------------------------------------------------
@@ -145,7 +146,11 @@ class VerificationView(View):
             # activate user and login:
             user.is_active = True
             user.save()
-            login(request, user)            
+            login(request, user)
+            if user.is_cliente:
+                client = Client.objects.create(user=user)
+            # if user.is_repuestero:
+            #     refiller = Repuestero.objects.create(user=user)
             return render(request, 'users/signup/activationSuccess.html')
         else:
             return HttpResponse('¡Link invalido o expirado!')
@@ -173,3 +178,25 @@ class ActivationFormView(UpdateView):
     def get_object(self):                
         id_     = self.kwargs.get("id")
         return get_object_or_404(Employee, user_id=id_)   
+
+class LoginView(FormView):
+    template_name = "users/login.html"
+
+    def get(self, request, *args, **kwargs):
+        form = AuthenticationForm()
+        context = {'form':form}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            #log the user
+            user = form.get_user()
+            if user is not None and user.is_cliente:
+                login(request, user)
+                return redirect('clients:dashboard-client')
+            if user is not None and user.is_repuestero:
+                login(request, user)
+                return redirect('refillers:dashboard-client')
+            context = {'form':form}
+            return render(request, self.template_name, context)
