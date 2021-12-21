@@ -1,5 +1,5 @@
 from typing import Protocol
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.urls import reverse
 
@@ -37,6 +37,8 @@ from .tokens import token_generator
 from .forms import SignupForm, SignupByMailForm, UserUpdatePassWordForm
 
 from clients.models import Client
+
+from seller.models import Seller
 
 User = get_user_model()
 # -----------------------------------------------------------------------
@@ -89,11 +91,11 @@ class SignupeNormalUser(CreateView):
 
 class SignupRefiller(CreateView):
     model = User
-    form_class = SignupForm
+    form_class = SignupByMailForm
     template_name = 'users/signup/index.html'
 
     def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'refiller'
+        kwargs['user_type'] = 'seller'
         return super().get_context_data(**kwargs)
     
     def form_valid(self, form):
@@ -110,7 +112,7 @@ class SignupRefiller(CreateView):
         uidb64          = urlsafe_base64_encode(force_bytes(user.pk))
         token           = token_generator.make_token(user)        
         domain          = get_current_site(self.request).domain
-        link            = reverse('N:activation', kwargs={'uidb64':uidb64, 'token': token})
+        link            = reverse('users:activation', kwargs={'uidb64':uidb64, 'token': token})
         protocol        = 'http://'
         activate_url    = protocol+domain+link
         email_subject   = '[MiRepuestero.com] ¡Ya casi tienes todos los repuestos a un click!'
@@ -125,7 +127,7 @@ class SignupRefiller(CreateView):
         )
         print("mail send")
         #redirigo al usuario a una pantalla que informa que le fue enviado un correo de activación            
-        return redirect('users:signup-refiller-linksent')
+        return redirect('users:signup-linksent')
 
 class linkSentView(View):
     template_name = "users/signup/linkSent.html"
@@ -149,8 +151,8 @@ class VerificationView(View):
             login(request, user)
             if user.is_cliente:
                 client = Client.objects.create(user=user)
-            # if user.is_repuestero:
-            #     refiller = Repuestero.objects.create(user=user)
+            if user.is_repuestero:
+                seller = Seller.objects.create(user=user)
             return render(request, 'users/signup/activationSuccess.html')
         else:
             return HttpResponse('¡Link invalido o expirado!')
@@ -194,9 +196,10 @@ class LoginView(FormView):
             user = form.get_user()
             if user is not None and user.is_cliente:
                 login(request, user)
-                return redirect('clients:dashboard-client')
+                return HttpResponseRedirect(reverse('clients:dashboard-client'))
             if user is not None and user.is_repuestero:
                 login(request, user)
-                return redirect('refillers:dashboard-client')
+                return HttpResponseRedirect(reverse('seller:dashboard', current_app='seller'))
+                 
             context = {'form':form}
             return render(request, self.template_name, context)
