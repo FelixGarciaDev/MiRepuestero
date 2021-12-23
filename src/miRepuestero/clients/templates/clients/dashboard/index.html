@@ -1,10 +1,14 @@
 {% extends 'baseDashboard.html' %}
 {% load static %}
 
+{% block client-header %}
+    {% include './header.html' %}
+{% endblock %}
+
 {% block left-menu %}
     {% include './options.html' %}
 {% endblock %}
 
 {% block dashboard-content %}
-    <h1>BIENVENIDO</h1>
+    <h1>BIENVENIDO USUARIO</h1>
 {% endblock %}

@@ -203,3 +203,8 @@ class LoginView(FormView):
                  
             context = {'form':form}
             return render(request, self.template_name, context)
+
+class LogoutView(RedirectView):
+    def get(self, request):        
+        logout(request)        
+        return HttpResponseRedirect(reverse('home:home'))

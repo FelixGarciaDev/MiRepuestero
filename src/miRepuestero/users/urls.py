@@ -6,7 +6,8 @@ from .views import (
     linkSentView,
     VerificationView,
     ActivationFormView,
-    LoginView
+    LoginView,
+    LogoutView
 )
 
 app_name = 'users'
@@ -21,6 +22,7 @@ urlpatterns = [
     path('activation/changepassword/', VerificationView.as_view(), name='activation-change-password'),
     path('activationform/form/<int:id>/', ActivationFormView.as_view(), name='activation-form'),
     # user login
-    path('login/', LoginView.as_view(), name='login')
-    
+    path('login/', LoginView.as_view(), name='login'),
+    # user logout
+    path('logout/', LogoutView.as_view(), name='logout')
 ]

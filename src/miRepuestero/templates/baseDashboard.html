@@ -3,19 +3,32 @@
 <html lang="es">
 
 {% include 'head.html' %}
+<!--Nav-->
+{% if user.is_authenticated %}    
+    {% if user.is_cliente %}
+        {% block client-header %}
 
-{% include 'header.html' %}
+        {% endblock %}
+    {% endif %}
+    {% if user.is_repuestero %}
+        {% block seller-header %}
+            
+        {% endblock %}
+    {% endif%}    
+{% else %}    
+    {% include 'header.html' %}
+{% endif %}
 
 <body>
     <div class="row mb-0">        
-        <div class="col m3 left-side pl-0 pr-0 left-menu-content">
+        <div class="col s3 m3 left-side pl-0 pr-0 left-menu-content hide-on-med-and-down">
             {% block left-menu %}
 
             {% endblock %}
         </div>
         
         <!--Right side panel-->
-        <div class="col s12 m9 pl-0 pr-0 right-panel-content">
+        <div class="col s12 m9 l9 pl-0 pr-0 right-panel-content">
             {% block dashboard-content %}
     
             {% endblock %}
