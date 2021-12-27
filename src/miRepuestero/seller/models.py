@@ -72,7 +72,7 @@ class Publication(models.Model):
     aka                 = models.CharField(max_length=280)
     works_for           = models.CharField(max_length=280)
     description         = models.CharField(max_length=5000)
-    image               = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')
+    image               = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='spareParts.png')
     image2              = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')
     image3              = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')
     image4              = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')

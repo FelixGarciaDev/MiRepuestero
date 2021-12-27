@@ -1,0 +1,66 @@
+{% load static %}
+<nav class="white">
+    <div class="nav-wrapper">
+        <div class="row">
+            <!--Logo-->
+            <div class="col l3 m3 s3">
+                <div class="col l10 offset-l1">
+                    <div class="" style="position: relative; top: 10px;">
+                        <img class="responsive-img hide-on-med-and-down" src="{% static 'images/logoCompressed.png' %}" alt="icon not found"/>
+                    </div>
+                </div>
+                <a href="#" data-target="slide-out" class="sidenav-trigger blue-text text-darken-3"><i class="material-icons">menu</i></a>
+            </div>
+            <!--Search-->
+            <div class="col l6 m9 s9">
+                <form class="">
+                    <div class="input-field">
+                      <input id="search" class="nav-bar-input" type="search" required>
+                      <label class="label-icon" for="search"><i class="material-icons blue-text text-darken-3">search</i></label>                      
+                    </div>
+                </form>
+            </div>
+            <!--Options-->
+            <div class="col l3 hide-on-med-and-down">
+                <ul class="right hide-on-med-and-down">
+                    {% if user.is_authenticated %}
+                        {% if user.is_cliente %}
+                            <li><a class="blue-text text-darken-3" href="{% url 'clients:dashboard-client' %}">Mi cuenta</a></li>
+                            <li>
+                                <a class="blue-text text-darken-3" href="{% url 'users:logout' %}">
+                                    <i class="material-icons right">exit_to_app</i> Salir
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_repuestero %}
+                            <li><a class="blue-text text-darken-3" href="{% url 'seller:dashboard' %}">Mi cuenta</a></li>
+                            <li>
+                                <a class="blue-text text-darken-3" href="{% url 'users:logout' %}">
+                                    <i class="material-icons right">exit_to_app</i> Salir
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li><a class="blue-text text-darken-3" href="{% url 'users:login' %}">Iniciar Sesión</a></li>
+                        <li><a class="blue-text text-darken-3" href="{% url 'users:signup-choose' %}">Registrarse</a></li>                        
+                    {% endif %}                    
+                </ul>
+            </div>
+        </div> 
+    </div>
+</nav>
+
+<!--MobileNav-->
+<ul id="slide-out" class="sidenav">    
+    <li>
+        <div class="mobile-menu-logo center-x-y-flex">
+            <img src="{% static 'images/logoCompressed.png' %}" alt="image-not-found" class="w-75 pt-1">
+        </div>
+    </li>
+    <li><a class="blue-text text-darken-3" href="#">Mi cuenta</a></li>    
+    <li>
+        <a class="blue-text text-darken-3" href="{% url 'users:logout' %}">
+            <i class="material-icons right">exit_to_app</i> Salir
+        </a>
+    </li>
+</ul>

@@ -124,4 +124,12 @@
     
 }
 
-/*---------------------- --------------------------------------*/
+/*------------------------------------------------PUBLICATION LIST--------------------------------------------------*/
+.publication-list{
+    display: flex;
+    justify-content: space-around;
+}
+
+.publication-list > .publication{
+    min-height: 250px;
+}

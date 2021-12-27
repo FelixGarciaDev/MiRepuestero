@@ -196,7 +196,7 @@ class LoginView(FormView):
             user = form.get_user()
             if user is not None and user.is_cliente:
                 login(request, user)
-                return HttpResponseRedirect(reverse('clients:dashboard-client'))
+                return HttpResponseRedirect(reverse('ecommerce:search'))
             if user is not None and user.is_repuestero:
                 login(request, user)
                 return HttpResponseRedirect(reverse('seller:dashboard', current_app='seller'))

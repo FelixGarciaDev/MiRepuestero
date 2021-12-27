@@ -1,0 +1,42 @@
+{% extends 'baseDashboard.html' %}
+{% load static %}
+
+{% block client-header %}
+    {% include './header.html' %}
+{% endblock %}
+
+{% block left-menu %}
+    
+{% endblock %}
+
+{% block dashboard-content %}
+<div class="col m2 hide-on-med-and-down">
+
+</div>
+
+<div class="col s12 m8 center-by-margin pt-2">
+    <div class="publication-list">
+        {% for instance in object_list.all %}
+            <div class="card col s12 m6 l4 publication">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="{% static 'images/spareParts.png' %}" alt="Not Found">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">{{ instance.name }}<i class="material-icons right">expand_less</i></span>
+                    <p>{{ instance.price }} $</p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">{{ instance.aka }}<i class="material-icons right">expand_more</i></span>
+                    <p>Numero de parte: {{ instance.part_number }}.</p>
+                    <p>Sirve para: {{ instance.works_for }}.</p>
+                </div>
+            </div>
+        {% endfor %}    
+    </div>
+</div>
+
+<div class="col m2 hide-on-med-and-down">
+
+</div>        
+
+{% endblock %}
