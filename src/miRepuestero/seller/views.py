@@ -47,7 +47,7 @@ class DashboardPublicacionesListView(ListView):
 
 class DashboardNuevaPublicacionView(CreateView):
     model         = Publication
-    form_class    = CreatePublicationForm    
+    form_class    = CreatePublicationForm
     template_name = 'seller/dashboard/publicationCreate.html'
 
     def form_valid(self, form):
@@ -59,26 +59,25 @@ class DashboardNuevaPublicacionView(CreateView):
 
 class DashboardUpdatePublicacionView(UpdateView):
     model = Publication
-    fields = ('nombre_publicacion', 'numero_parte', 'precio_publicacion', 'tambien_le_dicen', 'sirve_para', 'descripcion', 'imagen_principal', 'imagen2', 'imagen3', 'imagen4','imagen5')
-    template_name = 'refillers/dashboard_repuestero_update_publicacion.html'
+    form_class    = CreatePublicationForm    
+    template_name = 'seller/dashboard/publicationUpdate.html'
 
     def get_success_url(self):
-        return reverse('refillers:dashboard-repuestero-inventario')
+        return reverse('seller:inventory')
 
     def get_object(self):
         id_ = self.kwargs.get("id")
         return get_object_or_404(Publication, id=id_)
 
-    def form_valid(self, form):
-        print(form.cleaned_data)
+    def form_valid(self, form):        
         return super().form_valid(form)
 
-class DashboardDeletePublicacionView(UpdateView):
+class DashboardDeletePublicacionView(DeleteView):
     model = Publication
-    template_name = 'refillers/dashboard_repuestero_delete_publicacion.html'
+    template_name = 'seller/dashboard/publicationDelete.html'
         
     def get_success_url(self):
-        return reverse('refillers:dashboard-repuestero-inventario')
+        return reverse('seller:inventory')
 
     def get_object(self):
         id_ = self.kwargs.get("id")

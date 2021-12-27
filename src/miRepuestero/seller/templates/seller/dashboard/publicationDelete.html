@@ -1,0 +1,79 @@
+{% extends 'baseDashboard.html' %}
+{% load static %}
+
+{% block seller-header %}
+    {% include './header.html' %}
+{% endblock %}
+
+{% block left-menu %}
+    {% include './options.html' %}
+{% endblock %}
+
+{% block dashboard-content %}
+
+<section class="features-icons bg-light text-center col-10">
+    <div class="container">
+        <div class="row">
+        <div class="card col-10">        	
+            <div class="card-body">
+            		<p>Si no esta seguro de eliminar la publicación, puede... </p>
+                    <button onclick="location.href='{% url 'seller:update-publication' object.id  %}'" class="btn btn-success">Modificar esta publicación<span class="far fa-edit"></span></button>                
+            </div>
+        </div>
+        </div>
+        <div class="row">                
+            <div class="card col-5">  
+                <div class="card-body">                    
+                    <div class="row">
+                        <div class="col-12">
+                        	<h4>Información de la publicación</h4>
+                        	<p>Titulo: {{ object.name }}</p>
+						    <p>Rif: {{ object.part_number }}</p>
+							<p>Precio: {{ object.price }} Bs</p>					
+							<p>Tambien le dicen: {{ object.aka }}</p>  
+							<p>Sirve para: {{ object.works_for }}</p>
+							<p>Descripción: {{ object.description }}</p>						
+                       	</div>                        
+                    </div>
+                </div>
+            </div>
+            <div class="card col-5">
+                <div class="card-body">
+                    <div class="row">                        
+                        <div class="col-12">
+                            <h4>Imagenes</h4>
+                            <img class="img-fluid" src="{{ object.imagen_principal.url }}" alt="Image Not Found">
+                        </div>     
+                    </div>
+                    <div class="row">
+                    	<div class="col-3">
+                    		<img class="img-fluid" src="{{ object.imagen2.url }}" alt="Image Not Found">
+                    	</div>
+                    	<div class="col-3">
+                    		<img class="img-fluid" src="{{ object.imagen3.url }}" alt="Image Not Found">
+                    	</div>
+                    	<div class="col-3">
+                    		<img class="img-fluid" src="{{ object.imagen4.url }}" alt="Image Not Found">
+                    	</div>
+                    	<div class="col-3">
+                    		<img class="img-fluid" src="{{ object.imagen5.url }}" alt="Image Not Found">
+                    	</div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+		        <div class="card col-10">        	
+		            <div class="card-body">
+		            		<p>Si ya esta realmente seguro, puede... </p>
+		            		<form action='.' method='POST'>{% csrf_token %}  
+    							<p><input class="btn btn-danger" type='submit' value='Eliminar Publicacion' />   o...   <a href="{% url 'seller:inventory' %}" class="btn btn-outline-secondary" role="button">Volver</a></p>
+							</form>		                                    
+		            </div>
+        		</div>
+        	</div>
+    </div>
+</section>
+
+
+{% endblock %}

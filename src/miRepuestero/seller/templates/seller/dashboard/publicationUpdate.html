@@ -1,0 +1,133 @@
+{% extends 'baseDashboard.html' %}
+{% load static %}
+
+{% block seller-header %}
+    {% include './header.html' %}
+{% endblock %}
+
+{% block left-menu %}
+    {% include './options.html' %}
+{% endblock %}
+
+{% block dashboard-content %}
+
+<div class="col m2 hide-on-med-and-down">
+
+</div>
+
+<div class="col s12 m8 center-by-margin card horizontal">
+    <form method="post" enctype="multipart/form-data" class="col s12 m9 m-x-auto pt-2">
+        {% csrf_token %}        
+    
+        <div class="row">
+            <div class="input-field col s12">    
+                {{ form.name }}
+                <label for="id_name">Titulo:</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s12">
+                {{ form.part_number }}
+                <label for="id_part_number">Numero de parte:</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                {{ form.price }}
+                <label for="id_price">Precio:</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                {{ form.aka }}
+                <label for="id_aka">Tambien le dicen:</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                {{ form.works_for }}
+                <label for="id_works_for">Para los modelos:</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                {{ form.description }}
+                <label for="id_description">Descripción:</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s12">        
+                <label>Opcionalmente puede agregar hasta 5 fotos asociadas al reporte de riesgo</label>
+            </div>
+        </div>
+        
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Foto 1:</span>
+                <input type="file" name="image" accept="image/*" id="id_image">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+        
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Foto 2:</span>
+                <input type="file" name="image2" accept="image/*" id="id_image2">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+        
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Foto 3:</span>
+                <input type="file" name="image3" accept="image/*" id="id_image3">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+        
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Foto 4:</span>
+                <input type="file" name="image4" accept="image/*" id="id_image4">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+        
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Foto 5:</span>
+                <input type="file" name="image5" accept="image/*" id="id_image5">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+        
+        <div class="row center">                                
+            <button type='submit' class="waves-effect waves-light btn-large white-text">
+                Crear Publicación
+            </button>
+        </div>
+        </div>    
+    </form>
+</div>
+
+<div class="col m2 hide-on-med-and-down">
+
+</div>
+
+{% endblock %}
