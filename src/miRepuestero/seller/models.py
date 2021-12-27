@@ -61,3 +61,21 @@ class Seller(models.Model):
     dolar_value                 = models.IntegerField(null=False, default=1)
     #Asi se si el repuestero es favorito y de quien
     favorite_seller             = models.ManyToManyField(User, related_name = 'favorite_refiller', default = False)
+
+class Publication(models.Model):
+    owner               = models.ForeignKey(User, on_delete=models.CASCADE, related_name='publications')
+    category            = models.CharField(max_length=1, choices=CATEGORIAS, default='1')
+    name                = models.CharField(null=False, max_length=500)
+    part_number         = models.CharField(max_length=280)
+    price               = models.FloatField(null=False, default=0)
+    active              = models.BooleanField(default=False)
+    aka                 = models.CharField(max_length=280)
+    works_for           = models.CharField(max_length=280)
+    description         = models.CharField(max_length=5000)
+    image               = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')
+    image2              = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')
+    image3              = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')
+    image4              = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')
+    image5              = models.FileField(upload_to='Repuestero_Media/publicaciones/carros/', default='Repuestero_Media/publicaciones/carros/DefaultPart.jpg')
+    #ASI si es una publicación favorita y de quien
+    favorite_of         = models.ManyToManyField(User, related_name = 'favorite_part', default = False)

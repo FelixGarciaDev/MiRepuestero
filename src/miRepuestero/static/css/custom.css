@@ -3,6 +3,10 @@
     height: 100% !important;
 }
 
+
+.fixed-action-btn-dashboard{
+    top: 70vh;
+}
 /*NAVAR*/
 .nav-bar-input{
     top: 1.25rem;
@@ -119,3 +123,5 @@
 .singup-choose-bg{
     
 }
+
+/*---------------------- --------------------------------------*/

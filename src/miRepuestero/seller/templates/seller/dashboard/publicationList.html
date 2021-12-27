@@ -1,0 +1,63 @@
+{% extends 'baseDashboard.html' %}
+{% load static %}
+
+{% block seller-header %}
+    {% include './header.html' %}
+{% endblock %}
+
+{% block left-menu %}
+    {% include './options.html' %}
+{% endblock %}
+
+{% block dashboard-content %}
+<div class="col m2 hide-on-med-and-down">
+
+</div>
+
+<div class="col s12 m8 center-by-margin pt-2">
+    <!--Floating Button-->
+    <div class="fixed-action-btn fixed-action-btn-dashboard">
+        <a class="btn-floating btn-large waves-effect waves-light blue darken-2 tooltipped" data-position="top" data-tooltip="Nueva Publicación" href="{% url 'seller:create-publication' %}">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+    <!--List of risk reports-->
+    <ul class="collection with-header mb-mobile-for-floating-btn">
+        <li class="collection-header">
+            <form action='#' method='GET'>
+                {% csrf_token %}
+                <div class="input-field">
+                    <i class="material-icons prefix">search</i>        
+                    <input name="my_search" type="text" placeholder="Busca tu publicación">
+                </div>
+            </form>
+        </li>        
+        {% for instance in publicaciones.all %}
+        <li class="collection-item avatar">
+          <img src="{{ instance.photo1.url }}" alt="Image Not Found" class="circle" style="max-width: 3rem; position: absolute; left: 1rem; border: solid 1px darkgray;">
+          <span class="title">{{ instance.name }}</span>
+          <p class="colecction-elipsis-text">
+            {{ instance.place }} <br>        
+            {% if instance.category == '1' %}
+                Motos<br>
+            {% endif %}
+            {% if instance.category == '2' %}
+                Carros y Camionetas<br>
+            {% endif %}
+            {% if instance.category == '3' %}
+                Camiones y Carga<br>
+            {% endif %}                
+            {{ instance.description }}<br>
+          </p>
+          <a href="#" class=""><i class="material-icons">remove_red_eye</i></a>
+          <a href="#" class=""><i class="material-icons">edit</i></a>
+          <a href="#" class=""><i class="material-icons">delete_forever</i></a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="col m2 hide-on-med-and-down">
+
+</div>
+{% endblock %}

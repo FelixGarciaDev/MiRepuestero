@@ -1,42 +1,25 @@
-<div>
+<div class="h-75-vh">
     <ul class="collection principal-menu mt-0 mb-0">
       <li id="item-dashboard" class="collection-item avatar principal-menu-item">
-        <a href="#">
+        <a href="{% url 'seller:dashboard' %}">
           <i class="material-icons circle ">dashboard</i>
-          Inicio
+          Mi cuenta
         </a>
       </li>          
       <li id="item-profile" class="collection-item avatar principal-menu-item">
-        <a href="#">
+        <a href="{% url 'seller:inventory' %}">
           <i class="material-icons circle ">person</i>
-          Perfil
-        </a>
-      </li>
-      <li id="item-tasks" class="collection-item avatar principal-menu-item">
-        <a href="#">
-          <i class="material-icons circle ">assignment</i>
-          Defensas
-        </a>
-      </li>          
-      <li id="item-reports" class="collection-item avatar principal-menu-item">
-        <a href="#">
-          <i class="material-icons circle orange">report_problem</i>
-          Reportes de Riesgo
-        </a>
-      </li>
-      <li id="item-incidents-accidents" class="collection-item avatar principal-menu-item">
-        <a href="#">
-          <i class="material-icons circle ">report</i>
-          Incidentes y Accidentes
+          Publicaciones
         </a>
       </li>        
-      <!--EMPLEADOS-->
-      <li id="item-employees" class="collection-item avatar principal-menu-item">          
+      <li id="item-profile" class="collection-item avatar principal-menu-item">
         <a href="#">
-          <i class="material-icons circle ">group</i>
-          Empleados
-        </a>               
-      </li>  
+          <i class="material-icons circle ">person</i>
+          Mi suscripción
+        </a>
+      </li>
+             
+        
       <li id="item-logout" class="collection-item avatar principal-menu-item">
         <a href="#">
           <i class="material-icons circle red">exit_to_app</i>
